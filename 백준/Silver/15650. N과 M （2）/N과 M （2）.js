@@ -1,0 +1,24 @@
+const fs = require("fs");
+const input = fs.readFileSync("/dev/stdin").toString().trim();
+const [N, M] = input.split(" ").map(Number);
+
+let picked = [];
+let result = [];
+
+const dfs = (depth, start) => {
+  if (depth === M) {
+    result.push(picked.join(" "));
+    return;
+  }
+
+  for (let i = start; i <= N; i++) {
+    picked.push(i);
+
+    dfs(depth + 1, i + 1);
+
+    picked.pop();
+  }
+};
+dfs(0, 1);
+
+console.log(result.join("\n"));
